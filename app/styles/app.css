@@ -467,3 +467,7 @@ aside li {
 .container {
   border: 1px solid black;
 }
+
+.jdgm-medals-wrapper {
+  padding: 1rem 0 !important;
+}

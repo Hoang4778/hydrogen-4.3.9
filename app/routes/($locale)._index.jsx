@@ -4,11 +4,13 @@ import {Suspense} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
 import {
   JudgemeAllReviewsCount,
+  JudgemeAllReviewsRating,
   JudgemeCarousel,
   JudgemeMedals,
   JudgemePreviewBadge,
   JudgemeReviewsTab,
   JudgemeReviewWidget,
+  JudgemeVerifiedBadge,
 } from '@judgeme/shopify-hydrogen';
 
 /**
@@ -48,11 +50,20 @@ export default function Homepage() {
         <JudgemeMedals />
       </div>
       <div className="container">
-        <JudgemeReviewWidget id="8208498393226" />
+        <JudgemeAllReviewsRating />
+      </div>
+      <div className="container">
+        <JudgemeVerifiedBadge />
+      </div>
+      <div className="container">
+        <JudgemePreviewBadge id="8750293418267" />
+      </div>
+      <div className="container">
+        <JudgemeReviewWidget id="8750293418267" />
       </div>
       <div className="container">
         <section className="jdgm-widget jdgm-revs-tab">
-          <div className="jdgm-revs-tab-btn btn" position="bottom">
+          <div className="jdgm-revs-tab-btn btn" position="left">
             Reviews
           </div>
           <div className="jdgm-revs-tab__header">

@@ -39,6 +39,7 @@ export default async function handleRequest(
   let nonceVal = '';
 
   const oldHeader = header.split(';');
+
   oldHeader.forEach((item, idx) => {
     if (
       item.includes('connect-src') ||
@@ -46,7 +47,7 @@ export default async function handleRequest(
       item.includes('style-src')
     ) {
       item +=
-        ' https://cdn.judge.me https://cache.judge.me data: https://judgeme.imgix.net https://tracking.aws.judge.me';
+        ' https://cdn.judge.me https://cache.judge.me data: https://judgeme.imgix.net https://tracking.aws.judge.me https://judgeme-public-images.imgix.net https://vimeo.com https://judge.me';
       oldHeader[idx] = item;
     }
 
@@ -62,7 +63,7 @@ export default async function handleRequest(
 
       oldHeader[idx] =
         item +
-        ` https://cdn.judge.me https://cache.judge.me 'unsafe-inline' 'unsafe-eval' data: https://judgeme.imgix.net https://tracking.aws.judge.me`;
+        ` https://cdn.judge.me https://cache.judge.me 'unsafe-inline' 'unsafe-eval' data: https://judgeme.imgix.net https://tracking.aws.judge.me https://judgeme-public-images.imgix.net https://vimeo.com https://i.vimeocdn.com https://tracking.aws.judge.me`;
     }
   });
 
