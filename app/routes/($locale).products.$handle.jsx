@@ -1,4 +1,4 @@
-import {Suspense} from 'react';
+import {Suspense, useMemo} from 'react';
 import {defer, redirect} from '@shopify/remix-oxygen';
 import {Await, Link, useLoaderData} from '@remix-run/react';
 import {
@@ -9,6 +9,7 @@ import {
   CartForm,
 } from '@shopify/hydrogen';
 import {getVariantUrl} from '~/lib/variants';
+import {JudgemePreviewBadge} from '@judgeme/shopify-hydrogen';
 
 /**
  * @type {MetaFunction<typeof loader>}
@@ -96,6 +97,7 @@ export default function Product() {
   return (
     <div className="product">
       <ProductImage image={selectedVariant?.image} />
+
       <ProductMain
         selectedVariant={selectedVariant}
         product={product}
@@ -134,9 +136,14 @@ function ProductImage({image}) {
  */
 function ProductMain({selectedVariant, product, variants}) {
   const {title, descriptionHtml} = product;
+  //const badge = useMemo(
+  //() => <JudgemePreviewBadge id="8208498393226" template="page" />,
+  //[],
+  //);
   return (
     <div className="product-main">
       <h1>{title}</h1>
+      <JudgemePreviewBadge id="8208498393226" template="page" />
       <ProductPrice selectedVariant={selectedVariant} />
       <br />
       <Suspense

@@ -13,7 +13,9 @@
   },
   "prettier": "@shopify/prettier-config",
   "dependencies": {
-    "@remix-run/react": "^2.8.0",
+    "@judgeme/shopify-hydrogen": "^2.0.0",
+    "@remix-run/node": "^2.11.1",
+    "@remix-run/react": "^2.11.1",
     "@remix-run/server-runtime": "^2.8.0",
     "@shopify/cli": "3.59.2",
     "@shopify/cli-hydrogen": "^8.0.4",
@@ -22,8 +24,10 @@
     "graphql": "^16.6.0",
     "graphql-tag": "^2.12.6",
     "isbot": "^3.8.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "^18.3.1",
+    "react-dom": "^18.2.0",
+    "remix": "^2.11.1",
+    "remix-utils": "^7.6.0"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "5.0.2",

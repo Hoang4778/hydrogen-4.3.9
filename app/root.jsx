@@ -14,6 +14,8 @@ import favicon from './assets/favicon.svg';
 import resetStyles from './styles/reset.css?url';
 import appStyles from './styles/app.css?url';
 import {Layout} from '~/components/Layout';
+import {JudgemeReviewsTab, useJudgeme} from '@judgeme/shopify-hydrogen';
+import {ClientOnly} from 'remix-utils/client-only';
 
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
@@ -82,6 +84,12 @@ export async function loader({context}) {
       header: await headerPromise,
       isLoggedIn: isLoggedInPromise,
       publicStoreDomain,
+      judgeme: {
+        shopDomain: context.env.JUDGEME_SHOP_DOMAIN,
+        publicToken: context.env.JUDGEME_PUBLIC_TOKEN,
+        cdnHost: context.env.JUDGEME_CDN_HOST,
+        delay: 1000, // optional parameter, default to 500ms
+      },
     },
     {
       headers: {
@@ -95,6 +103,7 @@ export default function App() {
   const nonce = useNonce();
   /** @type {LoaderReturnData} */
   const data = useLoaderData();
+  useJudgeme(data.judgeme);
 
   return (
     <html lang="en">

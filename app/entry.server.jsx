@@ -36,8 +36,41 @@ export default async function handleRequest(
     await body.allReady;
   }
 
+  let nonceVal = '';
+
+  const oldHeader = header.split(';');
+  oldHeader.forEach((item, idx) => {
+    if (
+      item.includes('connect-src') ||
+      item.includes('script-src') ||
+      item.includes('style-src')
+    ) {
+      item +=
+        ' https://cdn.judge.me https://cache.judge.me data: https://judgeme.imgix.net https://tracking.aws.judge.me';
+      oldHeader[idx] = item;
+    }
+
+    if (item.includes('default-src')) {
+      const defaultSrcList = item.split(' ');
+      const nonceToken = defaultSrcList.find((subItem) =>
+        subItem.includes('nonce'),
+      );
+
+      if (nonceToken) {
+        nonceVal = nonceToken;
+      }
+
+      oldHeader[idx] =
+        item +
+        ` https://cdn.judge.me https://cache.judge.me 'unsafe-inline' 'unsafe-eval' data: https://judgeme.imgix.net https://tracking.aws.judge.me`;
+    }
+  });
+
+  let newHeader = oldHeader.join('; ');
+  newHeader = newHeader.replace(nonceVal, '');
+
   responseHeaders.set('Content-Type', 'text/html');
-  responseHeaders.set('Content-Security-Policy', header);
+  responseHeaders.set('Content-Security-Policy', newHeader);
 
   return new Response(body, {
     headers: responseHeaders,

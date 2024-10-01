@@ -2,6 +2,14 @@ import {defer} from '@shopify/remix-oxygen';
 import {Await, useLoaderData, Link} from '@remix-run/react';
 import {Suspense} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
+import {
+  JudgemeAllReviewsCount,
+  JudgemeCarousel,
+  JudgemeMedals,
+  JudgemePreviewBadge,
+  JudgemeReviewsTab,
+  JudgemeReviewWidget,
+} from '@judgeme/shopify-hydrogen';
 
 /**
  * @type {MetaFunction}
@@ -19,7 +27,10 @@ export async function loader({context}) {
   const featuredCollection = collections.nodes[0];
   const recommendedProducts = storefront.query(RECOMMENDED_PRODUCTS_QUERY);
 
-  return defer({featuredCollection, recommendedProducts});
+  return defer({
+    featuredCollection,
+    recommendedProducts,
+  });
 }
 
 export default function Homepage() {
@@ -27,6 +38,34 @@ export default function Homepage() {
   const data = useLoaderData();
   return (
     <div className="home">
+      <div className="container">
+        <JudgemeCarousel />
+      </div>
+      <div className="container">
+        <JudgemeAllReviewsCount />
+      </div>
+      <div className="container">
+        <JudgemeMedals />
+      </div>
+      <div className="container">
+        <JudgemeReviewWidget id="8208498393226" />
+      </div>
+      <div className="container">
+        <section className="jdgm-widget jdgm-revs-tab">
+          <div className="jdgm-revs-tab-btn btn" position="bottom">
+            Reviews
+          </div>
+          <div className="jdgm-revs-tab__header">
+            <a className="jdgm-close-ico"></a>
+            <h3 className="jdgm-revs-tab__title">Product Reviews</h3>
+            <a href="/pages/reviews">
+              <div className="jdgm-all-reviews-rating"></div>
+              <span className="jdgm-all-reviews-count"></span> reviews
+            </a>
+          </div>
+        </section>
+      </div>
+
       <FeaturedCollection collection={data.featuredCollection} />
       <RecommendedProducts products={data.recommendedProducts} />
     </div>
