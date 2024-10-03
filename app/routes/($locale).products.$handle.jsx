@@ -136,14 +136,11 @@ function ProductImage({image}) {
  */
 function ProductMain({selectedVariant, product, variants}) {
   const {title, descriptionHtml} = product;
-  //const badge = useMemo(
-  //() => <JudgemePreviewBadge id="8208498393226" template="page" />,
-  //[],
-  //);
+
   return (
     <div className="product-main">
       <h1>{title}</h1>
-      <JudgemePreviewBadge id="8208498393226" template="page" />
+      <JudgemePreviewBadge id="8750293418267" template="product" />
       <ProductPrice selectedVariant={selectedVariant} />
       <br />
       <Suspense

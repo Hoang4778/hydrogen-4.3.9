@@ -88,7 +88,7 @@ export async function loader({context}) {
         shopDomain: context.env.JUDGEME_SHOP_DOMAIN,
         publicToken: context.env.JUDGEME_PUBLIC_TOKEN,
         cdnHost: context.env.JUDGEME_CDN_HOST,
-        delay: 1000, // optional parameter, default to 500ms
+        delay: 500, // optional parameter, default to 500ms
       },
     },
     {
