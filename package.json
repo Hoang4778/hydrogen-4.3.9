@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "shopify hydrogen build --codegen",
-    "dev": "shopify hydrogen dev --codegen",
+    "dev": "shopify hydrogen dev --codegen --port 3002",
     "preview": "npm run build && shopify hydrogen preview",
     "lint": "eslint --no-error-on-unmatched-pattern --ext .js,.ts,.jsx,.tsx .",
     "codegen": "shopify hydrogen codegen"
