@@ -15,8 +15,6 @@ export default async function handleRequest(
   responseHeaders,
   remixContext,
 ) {
-  const {nonce, header, NonceProvider} = createContentSecurityPolicy();
-
   const body = await renderToReadableStream(
     <NonceProvider>
       <RemixServer context={remixContext} url={request.url} />
@@ -36,7 +34,8 @@ export default async function handleRequest(
     await body.allReady;
   }
 
-  console.log(header);
+  const {nonce, header, NonceProvider} = createContentSecurityPolicy();
+
   let nonceVal = '';
   const oldHeader = header.split(';');
 
@@ -50,10 +49,12 @@ export default async function handleRequest(
     'https://i.vimeocdn.com',
     'https://judge.me',
     'https://ae01.alicdn.com',
+    'https://m.media-amazon.com',
     `'unsafe-inline'`,
     `'unsafe-eval'`,
     'data:',
   ];
+  const exceptionLinks = exceptions.join(' ');
 
   oldHeader.forEach((item, idx) => {
     if (
@@ -61,8 +62,7 @@ export default async function handleRequest(
       item.includes('script-src') ||
       item.includes('style-src')
     ) {
-      item +=
-        ' https://cdn.judge.me https://cache.judge.me data: https://judgeme.imgix.net https://tracking.aws.judge.me https://judgeme-public-images.imgix.net https://vimeo.com https://judge.me';
+      item += ` ${exceptionLinks}`;
       oldHeader[idx] = item;
     }
 
@@ -76,9 +76,7 @@ export default async function handleRequest(
         nonceVal = nonceToken;
       }
 
-      oldHeader[idx] =
-        item +
-        ` https://cdn.judge.me https://cache.judge.me 'unsafe-inline' 'unsafe-eval' data: https://judgeme.imgix.net https://tracking.aws.judge.me https://judgeme-public-images.imgix.net https://vimeo.com https://i.vimeocdn.com https://tracking.aws.judge.me`;
+      oldHeader[idx] = item + ` ${exceptionLinks}`;
     }
   });
 
