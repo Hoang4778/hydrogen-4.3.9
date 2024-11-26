@@ -40,7 +40,7 @@ export default function Homepage() {
   const data = useLoaderData();
   return (
     <div className="home">
-      <div className="container">
+      {/* <div className="container">
         <JudgemeCarousel />
       </div>
       <div className="container">
@@ -56,10 +56,10 @@ export default function Homepage() {
         <JudgemeVerifiedBadge />
       </div>
       <div className="container">
-        <JudgemePreviewBadge id="8750293418267" />
-      </div>
+        <JudgemePreviewBadge id="8329922085151" />
+      </div> */}
       <div className="container">
-        <JudgemeReviewWidget id="8750293418267" />
+        <JudgemeReviewWidget id="8329922085151" />
       </div>
       <div className="container">
         <section className="jdgm-widget jdgm-revs-tab">

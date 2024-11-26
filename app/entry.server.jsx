@@ -36,9 +36,24 @@ export default async function handleRequest(
     await body.allReady;
   }
 
+  console.log(header);
   let nonceVal = '';
-
   const oldHeader = header.split(';');
+
+  const exceptions = [
+    'https://cdn.judge.me',
+    'https://cache.judge.me',
+    'https://judgeme.imgix.net',
+    'https://tracking.aws.judge.me',
+    'https://judgeme-public-images.imgix.net',
+    'https://vimeo.com',
+    'https://i.vimeocdn.com',
+    'https://judge.me',
+    'https://ae01.alicdn.com',
+    `'unsafe-inline'`,
+    `'unsafe-eval'`,
+    'data:',
+  ];
 
   oldHeader.forEach((item, idx) => {
     if (
