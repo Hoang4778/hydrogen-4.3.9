@@ -15,6 +15,8 @@ export default async function handleRequest(
   responseHeaders,
   remixContext,
 ) {
+  const {nonce, header, NonceProvider} = createContentSecurityPolicy();
+
   const body = await renderToReadableStream(
     <NonceProvider>
       <RemixServer context={remixContext} url={request.url} />
@@ -33,8 +35,6 @@ export default async function handleRequest(
   if (isbot(request.headers.get('user-agent'))) {
     await body.allReady;
   }
-
-  const {nonce, header, NonceProvider} = createContentSecurityPolicy();
 
   let nonceVal = '';
   const oldHeader = header.split(';');
