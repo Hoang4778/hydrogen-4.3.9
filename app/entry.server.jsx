@@ -17,25 +17,6 @@ export default async function handleRequest(
 ) {
   const {nonce, header, NonceProvider} = createContentSecurityPolicy();
 
-  const body = await renderToReadableStream(
-    <NonceProvider>
-      <RemixServer context={remixContext} url={request.url} />
-    </NonceProvider>,
-    {
-      nonce,
-      signal: request.signal,
-      onError(error) {
-        // eslint-disable-next-line no-console
-        console.error(error);
-        responseStatusCode = 500;
-      },
-    },
-  );
-
-  if (isbot(request.headers.get('user-agent'))) {
-    await body.allReady;
-  }
-
   let nonceVal = '';
   const oldHeader = header.split(';');
 
@@ -50,6 +31,7 @@ export default async function handleRequest(
     'https://judge.me',
     'https://ae01.alicdn.com',
     'https://m.media-amazon.com',
+    'https://i.etsystatic.com',
     `'unsafe-inline'`,
     `'unsafe-eval'`,
     'data:',
@@ -85,6 +67,25 @@ export default async function handleRequest(
 
   responseHeaders.set('Content-Type', 'text/html');
   responseHeaders.set('Content-Security-Policy', newHeader);
+
+  const body = await renderToReadableStream(
+    <NonceProvider>
+      <RemixServer context={remixContext} url={request.url} />
+    </NonceProvider>,
+    {
+      nonce,
+      signal: request.signal,
+      onError(error) {
+        // eslint-disable-next-line no-console
+        console.error(error);
+        responseStatusCode = 500;
+      },
+    },
+  );
+
+  if (isbot(request.headers.get('user-agent'))) {
+    await body.allReady;
+  }
 
   return new Response(body, {
     headers: responseHeaders,
